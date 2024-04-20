@@ -1,28 +1,33 @@
-let displayValue="0";
+let valorDefault="0";
 
 function updateDisplay(){
 
-    document.getElementById("display").innerHTML=displayValue
+    document.getElementById("display").innerHTML=valorDefault
 
 }
 
-function appendToDisplay(val){
-    // console.log(val)
-    if(displayValue==="0" && val !=="-"){
-        displayValue = val;
+function addDisplay(val){
+    if (val === '.') {
+        // Si la pantalla ya contiene un punto, no hacemos nada
+        if (valorDefault.includes('.')) {
+            return; // Salir de la función sin hacer ningún cambio
+        }
+    }
+    if(valorDefault==="0" && val !=='.'){
+        valorDefault = val;
     }
     else {
-        displayValue += val;
+        valorDefault += val;
     }
     updateDisplay();
 }
 
 function clearDisplay() {
-    displayValue = '0';
+    valorDefault = '0';
     updateDisplay();
 }
 
-// function calculate() {
+// function calcular() {
 //     try {
 //         displayValue = eval(displayValue).toString();
 //     } catch (error) {
@@ -30,9 +35,9 @@ function clearDisplay() {
 //     }
 //     updateDisplay();
 // }
-function calculate() {
+function calcular() {
     // Expresión matemática ingresada por el usuario
-    const expression = displayValue;
+    const expression = valorDefault;
 
     // Utilizamos expresiones regulares para analizar la entrada del usuario
     const regex = /([-+]?\d+(\.\d+)?)\s*([-+*/])\s*([-+]?\d+(\.\d+)?)/;
@@ -69,10 +74,10 @@ function calculate() {
         }
 
         // Actualizar el valor en el display
-        displayValue = result.toString();
+        valorDefault = parseFloat(result.toFixed(3)).toString()
     } else {
         // Expresión no válida
-        displayValue = 'Error: Expresión no válida';
+        valorDefault = 'Error: Expresión no válida';
     }
 
     // Actualizar el display
